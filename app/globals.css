@@ -17,9 +17,11 @@ body,
 
 .rdrMonth {
   width: 100 !important;
+  overflow-x: auto !important;
 }
 
 .rdrCalendarWrapper {
   width: 100% !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
+  overflow-x: auto !important;
 }

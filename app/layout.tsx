@@ -9,9 +9,9 @@ import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
 
 import ToasterProvider from "./providers/ToasterProvider";
-import getCurrentUser from "./libs/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
-import SuspenseWrapper from "./components/SuspenseWrapper";
+// import SuspenseWrapper from "./components/SuspenseWrapper";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Airbnb",
@@ -27,23 +27,23 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentUser = await getCurrentUser();
+  const session = await auth();
 
   return (
     <html lang="en">
       <body className={font.className}>
         <ToasterProvider />
-        <SuspenseWrapper>
-          <ClientOnly>
-            <SearchModal />
-            <RentModal />
-            <LoginModal />
-            <RegisterModal />
-          </ClientOnly>
-        </SuspenseWrapper>
-        <SuspenseWrapper>
-          <Navbar currentUser={currentUser} />
-        </SuspenseWrapper>
+        {/* <SuspenseWrapper> */}
+        <ClientOnly>
+          <SearchModal />
+          <RentModal />
+          <LoginModal />
+          <RegisterModal />
+        </ClientOnly>
+        {/* </SuspenseWrapper> */}
+        {/* <SuspenseWrapper> */}
+        <Navbar session={session} />
+        {/* </SuspenseWrapper> */}
         <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>

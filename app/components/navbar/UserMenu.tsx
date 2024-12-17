@@ -1,5 +1,6 @@
 "use client";
 
+import { Session } from "next-auth";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -7,15 +8,14 @@ import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import useRentModal from "@/app/hooks/useRentModal";
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  session?: Session | null;
 }
 
-const UserMenu = ({ currentUser }: UserMenuProps) => {
+const UserMenu = ({ session }: UserMenuProps) => {
   const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -27,12 +27,12 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
   }, []);
 
   const onRent = useCallback(() => {
-    if (!currentUser) {
+    if (!session) {
       return loginModal.onOpen();
     }
 
     rentModal.onOpen();
-  }, [currentUser, loginModal, rentModal]);
+  }, [session, loginModal, rentModal]);
 
   return (
     <div className="relative">
@@ -49,7 +49,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src={currentUser?.image} />
+            <Avatar src={session?.user?.image} />
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] bg-white overflow-hidden right-0 top-12 text-sm md:w-3/4">
           <div className="flex flex-col cursor-pointer">
-            {currentUser ? (
+            {session?.user ? (
               <>
                 <MenuItem
                   onClick={() => router.push("/trips")}

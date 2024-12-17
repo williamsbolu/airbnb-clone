@@ -35,7 +35,7 @@ const CountrySelect = ({ value, onChange }: CountrySelectProps) => {
           </div>
         )}
         classNames={{
-          control: () => "p-3 border-2",
+          control: () => "px-3 py-2 border-2",
           input: () => "text-lg",
           option: () => "text-lg",
         }}
