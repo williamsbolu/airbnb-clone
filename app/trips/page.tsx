@@ -4,6 +4,8 @@ import EmptyState from "../components/EmptyState";
 import getCurrentUser from "../libs/getCurrentUser";
 import { getReservations } from "../data/reservations";
 import TripsClient from "./TripsClient";
+import { Suspense } from "react";
+import Loader from "../components/Loader";
 
 const TripsPage = async () => {
   const currentUser = await getCurrentUser();
@@ -23,7 +25,11 @@ const TripsPage = async () => {
     );
   }
 
-  return <TripsClient reservations={reservations} currentUser={currentUser} />;
+  return (
+    <Suspense fallback={<Loader />}>
+      <TripsClient reservations={reservations} currentUser={currentUser} />
+    </Suspense>
+  );
 };
 
 export default TripsPage;

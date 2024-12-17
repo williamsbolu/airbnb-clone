@@ -4,6 +4,8 @@ import ListingCard from "./components/listings/ListingCard";
 import { getListing, IListingParams } from "./data/listings";
 import getCurrentUser from "./libs/getCurrentUser";
 
+export const dynamic = "force-dynamic";
+
 interface HomeProps {
   searchParams: IListingParams;
 }
