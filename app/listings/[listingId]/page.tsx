@@ -2,7 +2,6 @@ import EmptyState from "@/app/components/EmptyState";
 import { getListingById } from "@/app/data/listings";
 import ListingClient from "./ListingClient";
 import getCurrentUser from "@/app/libs/getCurrentUser";
-import ClientOnly from "@/app/components/ClientOnly";
 import { getReservations } from "@/app/data/reservations";
 
 const ListingPage = async ({ params }: { params: { listingId: string } }) => {
