@@ -5,7 +5,7 @@ export interface IListingParams {
   userId?: string;
   guestCount?: number;
   roomCount?: number;
-  bathroomCount: number;
+  bathroomCount?: number;
   startDate?: string;
   endDate?: string;
   locationValue?: string;
