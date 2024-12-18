@@ -61,6 +61,13 @@ const UserMenu = ({ session }: UserMenuProps) => {
               <>
                 <MenuItem
                   onClick={() => {
+                    router.push("/");
+                    toggleOpen();
+                  }}
+                  label="Home"
+                />
+                <MenuItem
+                  onClick={() => {
                     router.push("/trips");
                     toggleOpen();
                   }}
@@ -99,8 +106,27 @@ const UserMenu = ({ session }: UserMenuProps) => {
               </>
             ) : (
               <>
-                <MenuItem onClick={loginModal.onOpen} label="Login" />
-                <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                <MenuItem
+                  onClick={() => {
+                    router.push("/");
+                    toggleOpen();
+                  }}
+                  label="Home"
+                />
+                <MenuItem
+                  onClick={() => {
+                    loginModal.onOpen();
+                    toggleOpen();
+                  }}
+                  label="Login"
+                />
+                <MenuItem
+                  onClick={() => {
+                    registerModal.onOpen();
+                    toggleOpen();
+                  }}
+                  label="Sign up"
+                />
               </>
             )}
           </div>
