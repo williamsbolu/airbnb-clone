@@ -13,8 +13,12 @@ export async function registerUser(values: z.infer<typeof RegisterSchema>) {
   if (!validatedFields.success) return { error: "Invalid fields!" };
 
   const { name, email, password } = validatedFields.data;
-
   const hashedPassword = await bcrypt.hash(password, 12);
+
+  const existingUser = prisma.user.findUnique({
+    where: { email },
+  });
+  if (!existingUser) return { error: "Email already in use!" };
 
   const user = await prisma.user.create({
     data: {
@@ -32,6 +36,13 @@ export async function Login(values: z.infer<typeof LoginSchema>) {
   if (!validatedFields.success) return { error: "Invalid fields!" };
 
   const { email, password } = validatedFields.data;
+
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!existingUser || !existingUser.email || !existingUser.hashedPassword)
+    return { error: "Email does not exist!" };
 
   try {
     await signIn("credentials", {
