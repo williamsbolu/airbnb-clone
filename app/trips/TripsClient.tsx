@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Reservation, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
 import { useCallback, useState, useTransition } from "react";
